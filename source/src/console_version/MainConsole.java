@@ -11,6 +11,7 @@ public class MainConsole {
         // instantiate from BoardConsole class
         BoardConsole myBoard = new BoardConsole();
         myBoard.printBoard();
+        System.out.println(myBoard.getBoardLength());
     }
 
 }

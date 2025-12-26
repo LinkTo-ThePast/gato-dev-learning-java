@@ -14,6 +14,11 @@ public class BoardConsole {
         return Arrays.deepToString(board);
     }
 
+    // columns/rows
+    public int getBoardLength() {
+        return board.length;
+    }
+
     public void printBoard() {
         System.out.println(getBoard(board));
     }
