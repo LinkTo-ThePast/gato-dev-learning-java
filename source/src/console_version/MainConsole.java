@@ -1,17 +1,15 @@
 package console_version;
 
-import java.util.Arrays;
-
 /*
  Main simple console version
 * */
 public class MainConsole {
 
     public static void main(String[] args) {
-        // instantiate from BoardConsole class
-        BoardConsole myBoard = new BoardConsole();
-        myBoard.printBoard();
-        System.out.println(myBoard.getBoardLength());
+        // instantiate from MatchSession
+        MatchSession match = new MatchSession();
+
+        System.out.println(match.singleTurn(3,2,'X'));
     }
 
 }
