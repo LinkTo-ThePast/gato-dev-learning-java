@@ -1,5 +1,6 @@
 package console_version;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -9,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 * determines if there's a winner
 * */
 public class MatchSession {
-
-    int turns;
+    // each node on the grid represents a single turn, at maximum, there is 9 turns
+    private final int TURNS = 9;
     // for UI
     String gameTagPlayerOne;
     String gameTagPlayerTwo;
@@ -43,19 +44,45 @@ public class MatchSession {
         }
     }
 
-    private String singleTurn() {
-        // initialize turn by requesting user's input
-        try {
-            System.out.println("Enter position for selected row: ");
-            selectedRowByPlayerOne = Integer.parseInt(reader.next());
-            System.out.println("Enter position for selected column: ");
-            selectedColumnByPlayerOne = Integer.parseInt(reader.next());
-        } catch (NumberFormatException e) {
-            // find a better solution when improve phase comes in
-            System.out.println("at the moment, we cannot process your input. Sorry, initialize the game again.");
-            System.exit(0);
+    private char[][] singleTurn() {
+
+        // instantiate board session
+        char[][] sessionBoard = board.getBoard();
+        // selecting char
+        char selectedChar;
+        // each iterative step represents a single turn
+        for (int i = 0; i <= TURNS; i++) {
+            // initialize turn by requesting user's input
+            // selecting character based on even or odd number?
+            if (i % 2 == 0) {
+                selectedChar = selectedSymbolByPlayerOne;
+            } else {selectedChar = selectedSymbolBySecondPlayer;}
+            try {
+                // actual user input
+                System.out.println("Enter position for selected row: ");
+                selectedRowByPlayerOne = Integer.parseInt(reader.next());
+                System.out.println("Enter position for selected column: ");
+                selectedColumnByPlayerOne = Integer.parseInt(reader.next());
+                // notify user
+                TimeUnit.MILLISECONDS.sleep(1000);
+                System.out.println("Drawing over board according to player input...");
+                TimeUnit.MILLISECONDS.sleep(1000);
+                System.out.println("Selected row: " + selectedRowByPlayerOne + ", " + "Selected column: " + selectedColumnByPlayerOne);
+
+                sessionBoard = board.drawOverBoard(selectedRowByPlayerOne, selectedColumnByPlayerOne, selectedChar);
+
+                // SHOWING RESULT
+                System.out.println("BOARD STATE AFTER YOUR MOVE: ");
+                TimeUnit.MILLISECONDS.sleep(1000);
+                System.out.println(Arrays.deepToString(sessionBoard));
+            } catch (RuntimeException | InterruptedException e) {
+                // find a better solution when improve phase comes in
+                System.out.println("at the moment, we cannot process your input. Sorry, initialize the game again.");
+                System.exit(0);
+            }
         }
-        return board.drawOverBoard(selectedRowByPlayerOne, selectedColumnByPlayerOne, selectedSymbolByPlayerOne);
+
+        return sessionBoard;
     }
 
 
@@ -68,23 +95,8 @@ public class MatchSession {
         gameRules();
 
         // initialize turn for player one and return modified board after end of current turn
-        String modifiedBoard = singleTurn();
+        char[][] finalBoard = singleTurn();
 
-        // finish one turn as an example
-        try {
-            // notify user
-            System.out.println("Drawing over board based on selected positions by the user. ");
-            TimeUnit.MILLISECONDS.sleep(1000);
-            System.out.println("Row: " + selectedRowByPlayerOne + ", " + "Column: " + selectedColumnByPlayerOne);
-
-            // showing result after actual turn
-            System.out.println("BOARD AFTER YOUR MOVE: ");
-            System.out.println(modifiedBoard);
-            return  modifiedBoard;
-
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        }
-
+        return Arrays.deepToString(finalBoard);
     }
 }

@@ -23,7 +23,7 @@ public class BoardConsole {
     }
 
     // interface 2. draw a new symbol in the board
-    public String drawOverBoard(int selectedRow, int selectedColum, char playableChar) {
+    public char[][] drawOverBoard(int selectedRow, int selectedColum, char playableChar) {
         // initialize play session board
         char[][] board = getBoard();
 
@@ -32,7 +32,7 @@ public class BoardConsole {
         boolean isGreater = selectedColum > board.length || selectedRow > board.length;
         // zero index selection
         if (isGreater || isNegative) {
-            return "Out of bounds! Please, play again, and select a number between or equal to 1 and 3.";
+            return board;
         }
         // we assured correct user's input
         selectedRow -= 1;
@@ -41,7 +41,7 @@ public class BoardConsole {
         board[selectedRow][selectedColum] = playableChar;
 
         // return modified board
-        return Arrays.deepToString(board);
+        return board;
     }
 
 }
