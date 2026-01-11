@@ -71,6 +71,11 @@ public class MatchSession {
 
                 sessionBoard = board.drawOverBoard(selectedRowByPlayerOne, selectedColumnByPlayerOne, selectedChar);
 
+                if (sessionBoard[0][0] == sessionBoard[1][0] && sessionBoard[0][0] == sessionBoard[2][0]) {
+                    System.out.println("Player " + selectedChar + " has won the game!");
+                    break;
+                }
+
                 // SHOWING RESULT
                 System.out.println("BOARD STATE AFTER YOUR MOVE: ");
                 TimeUnit.MILLISECONDS.sleep(1000);
