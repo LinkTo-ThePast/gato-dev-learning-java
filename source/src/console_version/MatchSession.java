@@ -1,6 +1,8 @@
 package console_version;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -16,14 +18,16 @@ public class MatchSession {
     String gameTagPlayerOne;
     String gameTagPlayerTwo;
     // player attributes
-    int selectedRowByPlayerOne;
-    int selectedColumnByPlayerOne;
-    int selectedRowBySecondPlayer;
-    int selectedColumnBySecondPlayer;
+    int selectedRowByPlayer;
+    int selectedColumnByPlayer;
     // as default, player one has "X" symbol as playable character
     char selectedSymbolByPlayerOne = 'X';
     // as default, player one has "U" symbol as playable character
-    char selectedSymbolBySecondPlayer = 'U';
+    char selectedSymbolBySecondPlayer = 'O';
+
+    // record and games rules
+    Map<String, Integer> playerOneMovements = new HashMap<>();
+    Map<String, Integer> playerTwoMovements = new HashMap<>();
 
     // instantiate Scanner
     Scanner  reader = new Scanner(System.in);
@@ -45,12 +49,16 @@ public class MatchSession {
     }
 
     private char[][] singleTurn() {
-
         // instantiate board session
         char[][] sessionBoard = board.getBoard();
         // selecting char
         char selectedChar;
+
+        // initialize records
+        Map<String, Integer> historyOne = playerOneMovements;
+        Map<String, Integer> historyTwO = playerTwoMovements;
         // each iterative step represents a single turn
+
         for (int i = 0; i <= TURNS; i++) {
             // initialize turn by requesting user's input
             // selecting character based on even or odd number?
@@ -60,16 +68,26 @@ public class MatchSession {
             try {
                 // actual user input
                 System.out.println("Enter position for selected row: ");
-                selectedRowByPlayerOne = Integer.parseInt(reader.next());
+                selectedRowByPlayer = Integer.parseInt(reader.next());
                 System.out.println("Enter position for selected column: ");
-                selectedColumnByPlayerOne = Integer.parseInt(reader.next());
+                selectedColumnByPlayer = Integer.parseInt(reader.next());
                 // notify user
                 TimeUnit.MILLISECONDS.sleep(1000);
                 System.out.println("Drawing over board according to player input...");
                 TimeUnit.MILLISECONDS.sleep(1000);
-                System.out.println("Selected row: " + selectedRowByPlayerOne + ", " + "Selected column: " + selectedColumnByPlayerOne);
+                System.out.println("Selected row: " + selectedRowByPlayer + ", " + "Selected column: " + selectedColumnByPlayer);
 
-                sessionBoard = board.drawOverBoard(selectedRowByPlayerOne, selectedColumnByPlayerOne, selectedChar);
+                // not allow users to draw over the same place or over one place that is already occupied
+                // player one history movements
+                if (i % 2 == 0) {
+                    historyOne.put("row", selectedRowByPlayer);
+                    historyTwO.put("column", selectedColumnByPlayer);
+                } else {
+                    historyTwO.put("row", selectedRowByPlayer);
+                    historyTwO.put("column", selectedColumnByPlayer);
+                }
+
+                sessionBoard = board.drawOverBoard(selectedRowByPlayer, selectedColumnByPlayer, selectedChar);
 
                 if (sessionBoard[0][0] == sessionBoard[1][0] && sessionBoard[0][0] == sessionBoard[2][0]) {
                     System.out.println("Player " + selectedChar + " has won the game!");
