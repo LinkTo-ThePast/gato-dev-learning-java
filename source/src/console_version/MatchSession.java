@@ -65,6 +65,7 @@ public class MatchSession {
             if (i % 2 == 0) {
                 selectedChar = selectedSymbolByPlayerOne;
             } else {selectedChar = selectedSymbolBySecondPlayer;}
+
             try {
                 // actual user input
                 System.out.println("Enter position for selected row: ");
@@ -77,6 +78,14 @@ public class MatchSession {
                 TimeUnit.MILLISECONDS.sleep(1000);
                 System.out.println("Selected row: " + selectedRowByPlayer + ", " + "Selected column: " + selectedColumnByPlayer);
 
+                // check if exists a previous turn with that symbol
+                if ((historyOne.containsValue(selectedRowByPlayer) && historyOne.containsValue(selectedColumnByPlayer)) ||
+                        (historyTwO.containsValue(selectedRowByPlayer) && historyTwO.containsValue(selectedColumnByPlayer))
+                ) {
+                    System.out.println("You can't play in a previous occupied position!");
+                    break;
+                }
+
                 // not allow users to draw over the same place or over one place that is already occupied
                 // player one history movements
                 if (i % 2 == 0) {
@@ -87,12 +96,10 @@ public class MatchSession {
                     historyTwO.put("column", selectedColumnByPlayer);
                 }
 
-                sessionBoard = board.drawOverBoard(selectedRowByPlayer, selectedColumnByPlayer, selectedChar);
 
-                if (sessionBoard[0][0] == sessionBoard[1][0] && sessionBoard[0][0] == sessionBoard[2][0]) {
-                    System.out.println("Player " + selectedChar + " has won the game!");
-                    break;
-                }
+
+
+                sessionBoard = board.drawOverBoard(selectedRowByPlayer, selectedColumnByPlayer, selectedChar);
 
                 // SHOWING RESULT
                 System.out.println("BOARD STATE AFTER YOUR MOVE: ");
