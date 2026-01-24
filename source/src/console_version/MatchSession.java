@@ -48,7 +48,21 @@ public class MatchSession {
         }
     }
 
-    private char[][] singleTurn() {
+    private boolean thereIsVictory(char[][] board) {
+        boolean victory = false;
+
+        char nodeOne = board[0][0]; // superior -  right
+        char nodeTwo = board[0][2]; // superior - left
+        char nodeThree = board[2][0]; // inferior - right
+        char nodeFour = board[2][2]; // inferior - left
+
+        if (nodeOne == board[0][1] && nodeOne == nodeTwo) {
+            victory = true;
+        }
+        return victory;
+    }
+
+    private char[][] initializeTurns() {
         // instantiate board session
         char[][] sessionBoard = board.getBoard();
         // selecting char
@@ -59,7 +73,7 @@ public class MatchSession {
         Map<String, Integer> historyTwO = playerTwoMovements;
         // each iterative step represents a single turn
 
-        for (int i = 0; i <= TURNS; i++) {
+        for (int i = 0; i < TURNS + 1; i++) {
             // initialize turn by requesting user's input
             // selecting character based on even or odd number?
             if (i % 2 == 0) {
@@ -79,9 +93,9 @@ public class MatchSession {
                 System.out.println("Selected row: " + selectedRowByPlayer + ", " + "Selected column: " + selectedColumnByPlayer);
 
                 // check if exists a previous turn with that symbol
-                if ((historyOne.containsValue(selectedRowByPlayer) && historyOne.containsValue(selectedColumnByPlayer)) ||
-                        (historyTwO.containsValue(selectedRowByPlayer) && historyTwO.containsValue(selectedColumnByPlayer))
-                ) {
+                if ((historyOne.containsKey("row_position_" + selectedRowByPlayer) && historyOne.containsKey("column_position_" + selectedColumnByPlayer)) ||
+                        (historyTwO.containsKey(("row_position_" + selectedRowByPlayer)) && historyTwO.containsKey("column_position_" + selectedColumnByPlayer)))
+                {
                     System.out.println("You can't play in a previous occupied position!");
                     break;
                 }
@@ -89,17 +103,27 @@ public class MatchSession {
                 // not allow users to draw over the same place or over one place that is already occupied
                 // player one history movements
                 if (i % 2 == 0) {
-                    historyOne.put("row", selectedRowByPlayer);
-                    historyTwO.put("column", selectedColumnByPlayer);
+                    historyOne.put("row_position_" + selectedRowByPlayer, selectedRowByPlayer);
+                    historyOne.put("column_position_" + selectedColumnByPlayer, selectedColumnByPlayer);
                 } else {
-                    historyTwO.put("row", selectedRowByPlayer);
-                    historyTwO.put("column", selectedColumnByPlayer);
+                    historyTwO.put("row_position_" + selectedRowByPlayer, selectedRowByPlayer);
+                    historyTwO.put("column_position_" + selectedColumnByPlayer, selectedColumnByPlayer);
                 }
 
-
-
+                System.out.println(historyOne);
+                System.out.println(historyTwO);
 
                 sessionBoard = board.drawOverBoard(selectedRowByPlayer, selectedColumnByPlayer, selectedChar);
+
+                // after register board in this turn, check if there's victory
+                boolean thereIsWin = thereIsVictory(sessionBoard);
+                if (thereIsWin) {
+                    System.out.println("You have won!");
+                    TimeUnit.MILLISECONDS.sleep(1000);
+                    System.out.println("Final state of the board: ");
+                    System.out.println(Arrays.deepToString(sessionBoard));
+                    break;
+                }
 
                 // SHOWING RESULT
                 System.out.println("BOARD STATE AFTER YOUR MOVE: ");
@@ -125,7 +149,7 @@ public class MatchSession {
         gameRules();
 
         // initialize turn for player one and return modified board after end of current turn
-        char[][] finalBoard = singleTurn();
+        char[][] finalBoard = initializeTurns();
 
         return Arrays.deepToString(finalBoard);
     }
