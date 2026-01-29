@@ -59,6 +59,11 @@ public class MatchSession {
         if (nodeOne == board[0][1] && nodeOne == nodeTwo) {
             victory = true;
         }
+
+        if (nodeOne == nodeFour && nodeOne == board[1][0]) {
+            victory = true;
+        }
+
         return victory;
     }
 
