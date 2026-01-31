@@ -49,22 +49,8 @@ public class MatchSession {
     }
 
     private boolean thereIsVictory(char[][] board) {
-        boolean victory = false;
-
-        char nodeOne = board[0][0]; // superior -  right
-        char nodeTwo = board[0][2]; // superior - left
-        char nodeThree = board[2][0]; // inferior - right
-        char nodeFour = board[2][2]; // inferior - left
-
-        if (nodeOne == board[0][1] && nodeOne == nodeTwo) {
-            victory = true;
-        }
-
-        if (nodeOne == nodeFour && nodeOne == board[1][0]) {
-            victory = true;
-        }
-
-        return victory;
+        // change logic
+        return false;
     }
 
     private char[][] initializeTurns() {
