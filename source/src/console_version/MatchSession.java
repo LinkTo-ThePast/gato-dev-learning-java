@@ -20,7 +20,7 @@ public class MatchSession {
     // as default, player one has "X" symbol as playable character
     char selectedSymbolByPlayerOne = 'X';
     // as default, player one has "U" symbol as playable character
-    char selectedSymbolBySecondPlayer = 'O';
+    char selectedSymbolBySecondPlayer = 'W';
 
     // record and games rules
     Map<String, Integer> playerOneMovements = new HashMap<>();
