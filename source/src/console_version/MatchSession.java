@@ -14,9 +14,6 @@ import java.util.concurrent.TimeUnit;
 public class MatchSession {
     // each node on the grid represents a single turn, at maximum, there is 9 turns
     private final int TURNS = 9;
-    // for UI
-    String gameTagPlayerOne;
-    String gameTagPlayerTwo;
     // player attributes
     int selectedRowByPlayer;
     int selectedColumnByPlayer;
