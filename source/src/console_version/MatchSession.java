@@ -52,10 +52,16 @@ public class MatchSession {
         for (int i = 0; i < board.length; i++) {
             // first row i = 0
             char left_pointer = board[i][0]; // left pointer always going to be first position in the horizontal line
+            System.out.println("this is left pointer to check win:" +  left_pointer);
+            boolean thereIsMatch = true;
             for (int j = 1; j < board.length; j++) {
-                if (board[i][j] == left_pointer) {
-                    return true;
+                if (board[i][j] != left_pointer) {
+                    thereIsMatch = false;
                 }
+            }
+
+            if (thereIsMatch) {
+                return true;
             }
         }
 
