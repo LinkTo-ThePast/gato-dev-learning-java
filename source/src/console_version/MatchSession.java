@@ -46,6 +46,26 @@ public class MatchSession {
     }
 
     private boolean thereIsVictory(char[][] board) {
+
+        // three horizontal lines as win condition
+        // we can iterate
+        for (int i = 0; i < board.length; i++) {
+            // first row i = 0
+            char left_pointer = board[i][0]; // left pointer always going to be first position in the horizontal line
+            for (int j = 1; j < board.length; j++) {
+                if (board[i][j] == left_pointer) {
+                    return true;
+                }
+            }
+        }
+
+//        if ((board[0][0] == board[0][1] && board[0][0] == board[0][2])
+//            || (board[1][0] == board[1][1] && board[1][0] == board[1][2])
+//                || (board[2][0] == board[2][1] && board[2][0] == board[2][2])
+//        ) {
+//
+//        }
+
         // change logic
         return false;
     }
@@ -98,8 +118,6 @@ public class MatchSession {
                     historyTwO.put("column_position_" + selectedColumnByPlayer, selectedColumnByPlayer);
                 }
 
-                System.out.println(historyOne);
-                System.out.println(historyTwO);
 
                 sessionBoard = board.drawOverBoard(selectedRowByPlayer, selectedColumnByPlayer, selectedChar);
 
