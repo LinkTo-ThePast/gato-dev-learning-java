@@ -60,16 +60,21 @@ public class MatchSession {
 
         for (int r = 0; r < board.length; r++) {
             // outer loop: selecting a row
+            if (victory) {
+                break;
+            }
             char firstSymbol = board[r][0]; // left pointer
             for (int c = 1; c < board.length; c++) {
                 // inner loop: selecting a column
                 System.out.println("Comparing: " + firstSymbol + " ==== " + board[r][c]);
                 if (board[r][c] != firstSymbol) {
                     // if there's one inequality, then we should not keep iterating in this row
+                    victory = false;
+                    System.out.println("win condition: " + victory);
                     break;
-                } else {
-                    victory = true;
+                } else {victory = true;
                 }
+
             }
         }
 
