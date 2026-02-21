@@ -12,9 +12,9 @@ public class BoardConsole {
     //              ]
 
     // ALLOCATE memory for 9 characters
-    private char[][] board = { {Character.MIN_VALUE, Character.MIN_VALUE, Character.MIN_VALUE},
-            {Character.MIN_VALUE, Character.MIN_VALUE, Character.MIN_VALUE},
-            {Character.MIN_VALUE, Character.MIN_VALUE, Character.MIN_VALUE} }; // hold up 3 elements per sub-array?
+    private char[][] board = { {'a', 'b', 'c'},
+            {'d', 'e', 'f'},
+            {'g', 'h', 'i'} }; // hold up 3 elements per sub-array?
 
 
     // interface 1: get a copy that we can modify
