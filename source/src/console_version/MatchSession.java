@@ -79,23 +79,13 @@ public class MatchSession {
         }
 
         // vertical win conditions
+        // outer loop: selecting row
         for (int i = 0; i < board.length;i++) {
-            // only accessing to the first element of the row
-            // first loop example
-            char currentSymbol = board[i][0];
-            char nextSymbol = board[i+1][0];
-            char lastSymbol = board[i+2][0];
-            if (board[i][0] != board[i+1][0]) {
-                // if current symbol in vertical win condition is different from the second one, then increment
-                // outer loop so we can move onto the next column
-                continue;
-            }
-            // second loop
-            char secondSymbol = board[i][1];
-            char nextSecondSymbol = board[i+1][1];
-            //
+            // inner loop: selecting column
             for (int j = 0; j < board.length; j++) {
-
+                char currentSymbol = board[i][j]; // i, j == 0 --->
+                char nextSymbol = board[i+1][j];
+                char lastSymbol = board[i+2][j];
             }
         }
 
