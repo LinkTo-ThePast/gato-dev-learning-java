@@ -85,8 +85,17 @@ public class MatchSession {
             char currentSymbol = board[i][0];
             char nextSymbol = board[i+1][0];
             char lastSymbol = board[i+2][0];
+            if (board[i][0] != board[i+1][0]) {
+                // if current symbol in vertical win condition is different from the second one, then increment
+                // outer loop so we can move onto the next column
+                continue;
+            }
+            // second loop
+            char secondSymbol = board[i][1];
+            char nextSecondSymbol = board[i+1][1];
+            //
             for (int j = 0; j < board.length; j++) {
-                //
+
             }
         }
 
