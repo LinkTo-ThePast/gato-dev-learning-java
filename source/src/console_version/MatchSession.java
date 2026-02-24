@@ -81,6 +81,10 @@ public class MatchSession {
         // vertical win conditions
         for (int i = 0; i < board.length;i++) {
             // only accessing to the first element of the row
+            // first loop example
+            char currentSymbol = board[i][0];
+            char nextSymbol = board[i+1][0];
+            char lastSymbol = board[i+2][0];
             for (int j = 0; j < board.length; j++) {
                 //
             }
