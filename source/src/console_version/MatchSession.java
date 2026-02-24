@@ -78,6 +78,11 @@ public class MatchSession {
             }
         }
 
+        // vertical win conditions
+        for (int i = 0; i < board.length;i++) {
+            // vertical assignment
+        }
+
         return victory;
     }
 
