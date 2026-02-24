@@ -81,12 +81,9 @@ public class MatchSession {
         // vertical win conditions
         // outer loop: selecting row
         for (int i = 0; i < board.length;i++) {
-            // inner loop: selecting column
-            for (int j = 0; j < board.length; j++) {
-                char currentSymbol = board[i][j]; // i, j == 0 --->
-                char nextSymbol = board[i+1][j];
-                char lastSymbol = board[i+2][j];
-            }
+            char currentSymbol = board[i][0];
+            char nextSymbol = board[i][1];
+            System.out.println(currentSymbol);
         }
 
         return victory;
