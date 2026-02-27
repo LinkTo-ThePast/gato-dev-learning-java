@@ -53,11 +53,6 @@ public class MatchSession {
         // [ [X, X, X] ,
         // [ [X, X, X] ,
 
-        // horizontal win conditions:
-        int[][] horizontalOne = { {0,0}, {0,1}, {0,2}};
-        int[][] horizontalTwo = { {1,0}, {1,1}, {1,2}};
-        int[][] horizontalThree = { {2,0}, {2,1}, {2,2}};
-
         for (int r = 0; r < board.length; r++) {
             // outer loop: selecting a row
             if (victory) {
@@ -80,8 +75,10 @@ public class MatchSession {
 
         // vertical win conditions
         // outer loop: selecting row
+        char[] verticalArr = {};
         for (int i = 0; i < board.length;i++) {
-            char currentSymbol = board[i][0];
+
+
         }
 
         return victory;
