@@ -82,8 +82,6 @@ public class MatchSession {
         // outer loop: selecting row
         for (int i = 0; i < board.length;i++) {
             char currentSymbol = board[i][0];
-            char nextSymbol = board[i][1];
-            System.out.println(currentSymbol);
         }
 
         return victory;
