@@ -74,10 +74,13 @@ public class MatchSession {
         }
 
         // vertical win conditions
-        // outer loop: selecting row
         char[] verticalArr = {};
-        for (int i = 0; i < board.length;i++) {
-
+        // outer loop: lock colum
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                // inter loop: lock row
+                char firstVerticalSymbol = board[j][i]; //
+            }
 
         }
 
