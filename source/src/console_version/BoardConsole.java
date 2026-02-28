@@ -2,6 +2,11 @@ package console_version;
 
 import java.util.Arrays;
 
+/**
+ * Represents the actual "gato" (tic tac toe) board
+ * Theory concept applied: encapsulate board state and enforces controlled access
+ * through accessor and mutators methods (studied concept from book: data hiding)
+*/
 public class BoardConsole {
 
     // interface 1: CREATE AND INITIALIZE board console / attributes
@@ -16,15 +21,21 @@ public class BoardConsole {
             {'d', 'e', 'f'},
             {'g', 'h', 'i'} }; // hold up 3 elements per sub-array?
 
-
+    // DATA HIDING CONCEPT
     // interface 1: get a copy that we can modify
+    // this is an accessor method
+
+    // --> fix: modifying shallow copy
     public char[][] getBoard() {
         return board.clone();
     }
 
+
     // interface 2. draw a new symbol in the board
+    // this is a mutator method
     public char[][] drawOverBoard(int selectedRow, int selectedColum, char playableChar) {
         // initialize play session board
+        // this creates a local variable, so then this method is acting like a pure function rather than modifying current state
         char[][] board = getBoard();
 
         // avoid negative integers or greater than the current domain
