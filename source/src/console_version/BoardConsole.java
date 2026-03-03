@@ -9,25 +9,31 @@ import java.util.Arrays;
 */
 public class BoardConsole {
 
-    // interface 1: CREATE AND INITIALIZE board console / attributes
-    // how board does actually look like:
-    // [ [ X, X, X ] , --> 3 rows and 3 columns
-    //   [ X, X, X ] , --> second array
-    //   [ X, X, X ] , ---> third array
-    //              ]
+    // BOARD IS AN ARRAY OF ARRAYS: 2D array, with 3 rows and 3 columns:
+    private static final int BOARD_SIZE = 3;
 
-    // ALLOCATE memory for 9 characters
-    private char[][] board = { {'a', 'b', 'c'},
-            {'d', 'e', 'f'},
-            {'g', 'h', 'i'} }; // hold up 3 elements per sub-array?
+    // Internal board state: data hiding -> protect internal state from outside classes
+    private char board[][];
 
-    // DATA HIDING CONCEPT
-    // interface 1: get a copy that we can modify
-    // this is an accessor method
+    /**
+     * constructor: Initializes board with positional reference characters
+     * Note: positions are labeled from 'a' through 'i' for display purposes.
+     */
+    public BoardConsole() {
+        this.board = new char[][]{
+                {'a', 'b', 'c'},
+                {'d', 'e', 'f'},
+                {'g', 'h', 'i'}
+        };
+    }
 
     // --> fix: modifying shallow copy
     public char[][] getBoard() {
-        return board.clone();
+        char[][] boardCopy = new char[BOARD_SIZE][];
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            boardCopy[i] = board[i].clone();
+        }
+        return boardCopy;
     }
 
 
