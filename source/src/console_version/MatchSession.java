@@ -61,30 +61,56 @@ public class MatchSession {
             char firstSymbol = board[r][0]; // left pointer
             for (int c = 1; c < board.length; c++) {
                 // inner loop: selecting a column
-                System.out.println("Comparing: " + firstSymbol + " ==== " + board[r][c]);
                 if (board[r][c] != firstSymbol) {
                     // if there's one inequality, then we should not keep iterating in this row
                     victory = false;
-                    System.out.println("win condition: " + victory);
                     break;
-                } else {victory = true;
+                } else {
+                    return true;
                 }
 
             }
         }
 
         // vertical win conditions
-        char[] verticalArr = {};
-        // outer loop: lock colum
+        // outer loop: lock column
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                // inter loop: lock row
-                char firstVerticalSymbol = board[j][i]; //
+            if (victory) {
+                break;
             }
-
+            for (int j = 0; j < board.length; j++) {
+                // inner loop: lock row
+                char firstVerticalSymbol = board[j][i]; // -> pointer at the top
+                if (firstVerticalSymbol != board[j+1][i]) {
+                    victory = false;
+                    // if is not equal, then break iteration in that column, and continue to next one
+                    break;
+                } else {
+                    return true;
+                }
+            }
         }
 
-        return victory;
+        // diagonals win conditions
+        boolean diagonalVictory = true;
+        for (int i = board.length - 1; i >= 0; i--) {
+            char pointer = board[i][i];
+            if (pointer != board[i-1][i-1]) {
+                diagonalVictory = false;
+                break;
+            }
+        }
+
+        for (int i = 0; i < board.length; i++) {
+            char diagonalPointer = board[i][i];
+            if (diagonalPointer != board[i+1][j+1]) {
+                diagonalVictory = false;
+                break;
+            }
+        }
+        if (diagonalVictory) {
+            return true;
+        }
     }
 
     private char[][] initializeTurns() {
