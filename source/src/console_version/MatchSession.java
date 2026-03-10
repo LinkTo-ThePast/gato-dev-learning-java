@@ -46,16 +46,16 @@ public class MatchSession {
     }
 
     private boolean thereIsVictory(char[][] board) {
-
-        boolean victory = false;
+        boolean horizontalVictory = false;
         // we received a board with the following structure
         // [ [X, X, X] ,
         // [ [X, X, X] ,
         // [ [X, X, X] ,
 
+        // horizontal win condition
         for (int r = 0; r < board.length; r++) {
             // outer loop: selecting a row
-            if (victory) {
+            if (horizontalVictory) {
                 break;
             }
             char firstSymbol = board[r][0]; // left pointer
@@ -63,7 +63,7 @@ public class MatchSession {
                 // inner loop: selecting a column
                 if (board[r][c] != firstSymbol) {
                     // if there's one inequality, then we should not keep iterating in this row
-                    victory = false;
+                    horizontalVictory = false;
                     break;
                 } else {
                     return true;
@@ -72,23 +72,33 @@ public class MatchSession {
             }
         }
 
+        // check for horizontal victory, return boolean and end method?
+        if (horizontalVictory) {
+            return horizontalVictory;
+        }
+
         // vertical win conditions
+        boolean verticalVictory = false;
         // outer loop: lock column
         for (int i = 0; i < board.length; i++) {
-            if (victory) {
+            if (verticalVictory) {
                 break;
             }
             for (int j = 0; j < board.length; j++) {
                 // inner loop: lock row
                 char firstVerticalSymbol = board[j][i]; // -> pointer at the top
                 if (firstVerticalSymbol != board[j+1][i]) {
-                    victory = false;
+                    verticalVictory = false;
                     // if is not equal, then break iteration in that column, and continue to next one
                     break;
                 } else {
                     return true;
                 }
             }
+        }
+
+        if (verticalVictory) {
+            return  verticalVictory;
         }
 
         // diagonals win conditions
@@ -108,9 +118,11 @@ public class MatchSession {
                 break;
             }
         }
+
         if (diagonalVictory) {
-            return true;
+            return diagonalVictory;
         }
+
     }
 
     private char[][] initializeTurns() {
