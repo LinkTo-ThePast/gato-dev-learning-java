@@ -62,7 +62,6 @@ public class BoardConsole {
         // draw over board with specified positions [x: row, y: column]
 
         this.board[selectedRow][selectedColum] = playableChar;
-
     }
 
 }

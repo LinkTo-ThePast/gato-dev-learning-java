@@ -46,13 +46,14 @@ public class MatchSession {
     }
 
     private boolean thereIsVictory(char[][] board) {
-        boolean horizontalVictory = false;
+
         // we received a board with the following structure
-        // [ [X, X, X] ,
-        // [ [X, X, X] ,
-        // [ [X, X, X] ,
+        // [ [X, X, X] , ---> check for horizontal win conditions
+        // [ [X, X, X] , ---> check for vertical win condition
+        // [ [X, X, X] , ---> check for diagonal win conditon
 
         // horizontal win condition
+        boolean horizontalVictory = false;
         for (int r = 0; r < board.length; r++) {
             // outer loop: selecting a row
             if (horizontalVictory) {
@@ -66,15 +67,14 @@ public class MatchSession {
                     horizontalVictory = false;
                     break;
                 } else {
-                    return true;
+                    horizontalVictory = true;
                 }
-
             }
         }
 
         // check for horizontal victory, return boolean and end method?
         if (horizontalVictory) {
-            return horizontalVictory;
+            return true;
         }
 
         // vertical win conditions
@@ -92,37 +92,48 @@ public class MatchSession {
                     // if is not equal, then break iteration in that column, and continue to next one
                     break;
                 } else {
-                    return true;
+                    verticalVictory = true;
                 }
             }
         }
 
         if (verticalVictory) {
-            return  verticalVictory;
+            return true;
         }
 
         // diagonals win conditions
-        boolean diagonalVictory = true;
+        boolean diagonalTwoVictory = false;
         for (int i = board.length - 1; i >= 0; i--) {
             char pointer = board[i][i];
             if (pointer != board[i-1][i-1]) {
-                diagonalVictory = false;
+                diagonalTwoVictory  = false;
                 break;
+            } else {
+                diagonalTwoVictory = true;
             }
         }
 
+        if (diagonalTwoVictory) {
+            return true;
+        }
+
+        // diagonal one win condition check
+        boolean diagonalOneVictory = false;
         for (int i = 0; i < board.length; i++) {
-            char diagonalPointer = board[i][i];
-            if (diagonalPointer != board[i+1][j+1]) {
-                diagonalVictory = false;
-                break;
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] != board[i+1][j+1]) {
+                    diagonalOneVictory = false;
+                    break;
+                } else {
+                    diagonalOneVictory = true;
+                }
             }
         }
-
-        if (diagonalVictory) {
-            return diagonalVictory;
+        if (diagonalOneVictory) {
+            return true;
         }
 
+        return horizontalVictory || verticalVictory || diagonalOneVictory || diagonalTwoVictory;
     }
 
     private char[][] initializeTurns() {
@@ -172,7 +183,6 @@ public class MatchSession {
                     historyTwO.put("row_position_" + selectedRowByPlayer, selectedRowByPlayer);
                     historyTwO.put("column_position_" + selectedColumnByPlayer, selectedColumnByPlayer);
                 }
-
 
                 sessionBoard = board.drawOverBoard(selectedRowByPlayer, selectedColumnByPlayer, selectedChar);
 
