@@ -20,7 +20,7 @@ public class BoardConsole {
      */
     public BoardConsole() {
         this.board = new char[][]{
-                {'u', 'b', 'c'},
+                {'a', 'b', 'c'},
                 {'d', 'e', 'f'},
                 {'g', 'h', 'i'}
         };
