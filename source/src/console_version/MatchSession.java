@@ -202,7 +202,7 @@ public class MatchSession {
                 System.out.println(Arrays.deepToString(sessionBoard));
             } catch (RuntimeException | InterruptedException e) {
                 // find a better solution when improve phase comes in
-                System.out.println("at the moment, we cannot process your input. Sorry, initialize the game again.");
+                System.out.println("at the moment, we cannot process your input. Sorry, initialize the game again...");
                 System.exit(0);
             }
         }
