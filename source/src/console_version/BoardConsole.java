@@ -6,7 +6,9 @@ package console_version;
  */
 public class BoardConsole {
     // ATTRIBUTES
-    private final int BOARD_SIZE = 3;
+    // static: because its a class variable rather than instance variable
+    // access level modifier ---> private
+    private static final int BOARD_SIZE = 3;
 
     // DEFINE board structure as an array of arrays: an array containing 3 arrays
     private final char[][] board;
@@ -23,13 +25,14 @@ public class BoardConsole {
     // get a copy so internal state does not get modified
 
     /**
+     * Accessor method: returns a deep copy of the board.
      * Deep copy of the board
      * @return a playable board to initialize a game session
      */
-    public static char[][] getBoard() {
+    public char[][] getBoard() {
         char[][] boardCopy = new char[BOARD_SIZE][];
         for (int i = 0; i < BOARD_SIZE; i++) {
-            boardCopy[i] = board[i];
+            boardCopy[i] = board[i].clone();
         }
         return boardCopy;
     }
